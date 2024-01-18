@@ -86,6 +86,3 @@ if __name__ == "__main__":
     else:
         print("only memory and cpu scaling are avaliable")
         exit(0)
-
-POD_NAME = "nats-66d95944b-hfxtn"
-#cgroups_path_conju = json.loads(out(f"sudo crictl inspectp {uid}"))["info"]["runtimeSpec"]["linux"]["cgroupsPath"]

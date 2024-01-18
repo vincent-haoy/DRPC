@@ -5,7 +5,7 @@ import random
 import string
 import requests
 import time
-url = "http://172.16.101.163:32677"
+url = "?"
 
 # login train-ticket and store the cookies
 

@@ -17,7 +17,7 @@ def Reward(RewardQos,RewardUtility):
 
 text = [i for i in range (0, 2100, 100)]
 print(text)
-with open('dummy_request.csv','w') as file:
+with open('your csv','w') as file:
     writer = csv.writer(file, delimiter=',')
     for word in text:
         writer.writerow([word])

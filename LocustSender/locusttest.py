@@ -18,7 +18,7 @@ place_pairs = [("Shang Hai", "Su Zhou"),
 class WebsiteUser(HttpUser):
     wait_time = between(0, 2)
     def on_start(self):
-        url = "http://172.16.101.163:32677"
+        url = "?"
         self.client.headers ={
             'Proxy-Connection': 'keep-alive',
             'Accept': 'application/json',

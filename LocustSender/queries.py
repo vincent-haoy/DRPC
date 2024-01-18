@@ -5,7 +5,7 @@ import time
 import random
 from utils import *
 
-logger = logging.getLogger("auto-queries")
+logger = logging.getLogger("?")
 datestr = time.strftime("%Y-%m-%d", time.localtime())
 
 

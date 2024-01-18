@@ -13,8 +13,8 @@ from statistics import mean
 from multiprocessing import Pool
 from run_load_test import *
 import math
-LOCUST_CSV_PATH = "/root/haoyu/train-ticket-auto-query-master/loadtest_test_stats.csv"
-PATH_PREFIX = "/root/haoyu/train-ticket-auto-query-master/"
+LOCUST_CSV_PATH = "your.csv"
+PATH_PREFIX = "your_prefix/"
 class Train_ticket:
   def __init__(self, max_replicas=5):
     initial_cpu = 100 * 100000
@@ -22,16 +22,16 @@ class Train_ticket:
     self.max_replicas = max_replicas
     self.init_dict = collections.OrderedDict(
       {
-                           #'ts-consign-price-service': [1, initial_cpu, initial_memory],
-                           #'ts-station-food-service': [1, initial_cpu, initial_memory],
-                           #'ts-voucher-service': [1, initial_cpu, initial_memory],
-                           #'ts-wait-order-service': [1, initial_cpu, initial_memory],
-                           #'rabbitmq': [1, initial_cpu, initial_memory],
-                           #'ts-admin-order-service': [1, initial_cpu, initial_memory],
-                           #'ts-auth-service': [1, initial_cpu, initial_memory],
-                           #'ts-avatar-service': [1, initial_cpu, initial_memory],
-                           #'ts-consign-service': [1, initial_cpu, initial_memory],
-                           #
+                           'ts-consign-price-service': [1, initial_cpu, initial_memory],
+                           'ts-station-food-service': [1, initial_cpu, initial_memory],
+                           'ts-voucher-service': [1, initial_cpu, initial_memory],
+                           'ts-wait-order-service': [1, initial_cpu, initial_memory],
+                           'rabbitmq': [1, initial_cpu, initial_memory],
+                           'ts-admin-order-service': [1, initial_cpu, initial_memory],
+                           'ts-auth-service': [1, initial_cpu, initial_memory],
+                           'ts-avatar-service': [1, initial_cpu, initial_memory],
+                           'ts-consign-service': [1, initial_cpu, initial_memory],
+                           
                            #'ts-food-delivery-service': [1, initial_cpu, initial_memory],
                            #'ts-news-service': [1, initial_cpu, initial_memory],
                            #'ts-notification-service': [1, initial_cpu, initial_memory],
@@ -40,33 +40,33 @@ class Train_ticket:
 
 
                            #######################################################
-                           #'ts-admin-basic-info-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-admin-route-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-admin-travel-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-admin-user-service': [max_replicas, initial_cpu, initial_memory], 
-                           #'ts-basic-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-config-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-delivery-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-execute-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-gateway-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-inside-payment-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-order-other-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-order-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-payment-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-preserve-other-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-preserve-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-price-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-rebook-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-route-plan-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-route-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-security-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-station-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-train-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-travel-plan-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-travel-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-travel2-service': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-ui-dashboard': [max_replicas, initial_cpu, initial_memory],
-                           #'ts-user-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-admin-basic-info-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-admin-route-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-admin-travel-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-admin-user-service': [max_replicas, initial_cpu, initial_memory], 
+                           'ts-basic-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-config-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-delivery-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-execute-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-gateway-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-inside-payment-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-order-other-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-order-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-payment-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-preserve-other-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-preserve-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-price-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-rebook-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-route-plan-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-route-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-security-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-station-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-train-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-travel-plan-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-travel-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-travel2-service': [max_replicas, initial_cpu, initial_memory],
+                           'ts-ui-dashboard': [max_replicas, initial_cpu, initial_memory],
+                           'ts-user-service': [max_replicas, initial_cpu, initial_memory],
                            ##########################################################
                           'ts-seat-service': [max_replicas, initial_cpu, initial_memory],
                           'ts-verification-code-service': [max_replicas, initial_cpu, initial_memory],
@@ -90,7 +90,7 @@ class Train_ticket:
     return deployment_pod_dict
            
 class SystemEnv:
-  def __init__(self, requestCsv = "dummy_request.csv",namespace = "haoyu", pod_initial_status = Train_ticket()):
+  def __init__(self, requestCsv = "your.csv",namespace = "yournamespace", pod_initial_status = Train_ticket()):
       self.max_replicates = pod_initial_status.max_replicas
       self.cpumax = 0.75
       self.memorymax = 0.75
@@ -191,7 +191,7 @@ class SystemEnv:
     current_request = self.requests[self.iterator % self.total_request][0]
     queue = multiprocessing.Queue()
     sub_process2 = multiprocessing.Process(target=run_locust, kwargs={"load": current_request, "pathprefix" : PATH_PREFIX })
-    sub_process1 = multiprocessing.Process(target=get_node_cpu_and_memory_usage, kwargs={"namespace": "haoyu", "queue":queue})
+    sub_process1 = multiprocessing.Process(target=get_node_cpu_and_memory_usage, kwargs={"namespace": "yournamespace", "queue":queue})
     sub_process1.start()
     sub_process2.start()
     

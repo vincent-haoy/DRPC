@@ -13,8 +13,8 @@ from statistics import mean
 from multiprocessing import Pool
 from run_load_test import *
 import math
-LOCUST_CSV_PATH = "/root/haoyu/train-ticket-auto-query-master/loadtest_test_stats.csv"
-PATH_PREFIX = "/root/haoyu/train-ticket-auto-query-master/"
+LOCUST_CSV_PATH = "YOUR.csv"
+PATH_PREFIX = "YOUR.csv"
 class Telementory_Train_ticket:
   def __init__(self, max_replicas=5):
     initial_cpu = 500 * 100000
@@ -74,7 +74,7 @@ class Telementory_Train_ticket:
                           #'ts-contacts-service': [max_replicas, initial_cpu, initial_memory],
                           #'ts-cancel-service': [max_replicas, initial_cpu, initial_memory],
                           #'ts-assurance-service': [max_replicas, initial_cpu, initial_memory], 
-                          'ts-food-service': [max_replicas, initial_cpu, initial_memory],
+                          #'ts-food-service': [max_replicas, initial_cpu, initial_memory],
                            ##########################################################
                           })
 

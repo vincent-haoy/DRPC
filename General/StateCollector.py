@@ -46,7 +46,7 @@ def get_node_cpu_and_memory_usage(namespace,queue=None):
     queue.put([cpu_total,memory_total])
     return pooled_results
 
-#print(get_cpu_and_memory_usage("haoyu"))
+#print(get_cpu_and_memory_usage("?"))
 
 
 
@@ -85,7 +85,7 @@ def get_deployment_with_replicates(namespace):
         deployment.append((i.metadata.name,i.status.replicas,i.status.available_replicas, i.status.unavailable_replicas))
     return deployment
 
-"""def vertical_scaling(podname, usage, namespace = "haoyu"):
+"""def vertical_scaling(podname, usage, namespace = "?"):
     
     #only work for cgroup v2, implement cgroupv1 version if in required
     
@@ -94,8 +94,8 @@ def get_deployment_with_replicates(namespace):
     os.system(command)
     print(command)"""
     
-def batch_scaling(deployments, namespace = "haoyu"):
-    scaling_group_by_nodes = {"cc167" :[], "cc182":[], "cc188":[],"cc193":[]}
+def batch_scaling(deployments, namespace = "?"):
+    scaling_group_by_nodes = {"node0?" :[], "node1?":[], "node2?":[],"node3?":[]}
     for (deployment, cpu, memory, portion) in deployments:
         cpu = max(1000, cpu*100000)#convert to the cgroup v2 unit
         memory = max(600, memory*2000)
@@ -113,20 +113,20 @@ def batch_scaling(deployments, namespace = "haoyu"):
         vertical_scaling_by_nodes(k,v)
 
     
-def vertical_scaling_by_nodes(host, scaling_list,passpharse="tinker"):
+def vertical_scaling_by_nodes(host, scaling_list,passpharse="?"):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(hostname=host, port=22, username='root', password=passpharse)
+    ssh.connect(hostname=host, port=?, username='?', password=passpharse)
     commands = ""
     for pod, cpu, memory in scaling_list:
-        commands += f"python3 ~/haoyu/Scaling.py --pod {pod} --type cpu --amount {cpu}\n"
-        commands += f"python3 ~/haoyu/Scaling.py --pod {pod} --type memory --amount {memory}\n"
+        commands += f"python3 ~/?/Scaling.py --pod {pod} --type cpu --amount {cpu}\n"
+        commands += f"python3 ~/?/Scaling.py --pod {pod} --type memory --amount {memory}\n"
     stdin1, stdout1, stderr1 = ssh.exec_command(commands)
     ssh.close()
 
     
 #horizontal scaling 
-def vertical_scaling(dep, types="cpu", usage=100000, namespace="haoyu", deployment = "deployment",portion = 1):
+def vertical_scaling(dep, types="cpu", usage=100000, namespace="?", deployment = "deployment",portion = 1):
     relavent_pod = get_pods_in_deployment(dep, namespace)
     replicates = max(1, round(portion * len(relavent_pod)))
     done = 0
@@ -138,13 +138,13 @@ def vertical_scaling(dep, types="cpu", usage=100000, namespace="haoyu", deployme
         
 
 #remmote vertical scaling
-def remote_vertical_scaling(host, pod, usage,target,passpharse="tinker"):
+def remote_vertical_scaling(host, pod, usage,target,passpharse="?"):
     #@Todo: caling the Scaling.py remotely
     print(host, pod)
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(hostname=host, port=22, username='root', password=passpharse)
-    command = f"python3 ~/haoyu/Scaling.py --pod {pod} --type {target} --amount {usage}"
+    ssh.connect(hostname=host, port=?, username='?', password=passpharse)
+    command = f"python3 ~/?/Scaling.py --pod {pod} --type {target} --amount {usage}"
     stdin1, stdout1, stderr1 = ssh.exec_command(command)
     print(stdout1.read())
     print(stderr1.read())
@@ -161,12 +161,12 @@ def block_pods_by_deployment(deployment,propotion):
         block_pod_connection(pods[j][0])        
 
 
-def block_pod_connection(pod_name,namespace="haoyu"):
+def block_pod_connection(pod_name,namespace="?"):
 
     subprocess.run(["kubectl", "label", "pod", pod_name, "trafficblocked=blocked", "-n", namespace, "--overwrite"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     #out = os.system(command) # discard printing
 
-def unblock_pod_connection(pod_name,namespace="haoyu"):
+def unblock_pod_connection(pod_name,namespace="?"):
     subprocess.run(["kubectl", "label", "pod", pod_name, "trafficblocked=notblocked", "-n", namespace, "--overwrite"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     #out = os.system(command) # discard printing
     
@@ -202,26 +202,26 @@ def Horizontal_applied(deployment_name,namespace):
             return False
     return True  
 
-"""print(Horizontal_applied("haoyu"))
-print(get_pods("haoyu"))
-print(get_deployment_with_replicates("haoyu"))"""
+"""print(Horizontal_applied("?"))
+print(get_pods("?"))
+print(get_deployment_with_replicates("?"))"""
 
-def get_pods_in_deployment(deployment_name, namespace="haoyu"):
+def get_pods_in_deployment(deployment_name, namespace="?"):
     call_back = v1.list_namespaced_pod(namespace=namespace, label_selector='app={}'.format(deployment_name))
     pods = []
     for pod in call_back.items:
         if pod.status.phase == "Running":
             pods.append((pod.metadata.name,pod.spec.node_name))
     return pods
-#horizontal_scaling("rabbitmq", 1, "haoyu", deployment="deployment")
-#print(get_pods_in_deployment("rabbitmq", "haoyu"))
-#print(Horizontal_applied("rabbitmq", "haoyu"))
+#horizontal_scaling("rabbitmq", 1, "?", deployment="deployment")
+#print(get_pods_in_deployment("rabbitmq", "?"))
+#print(Horizontal_applied("rabbitmq", "?"))
 
 
 def top_pod(queue):
     #sleep 10 seconds for locust testing start
     time.sleep(27)
-    topcmd=subprocess.run(["kubectl", "top" ,"pods", "-n", "haoyu"], capture_output=True,timeout=10)
+    topcmd=subprocess.run(["kubectl", "top" ,"pods", "-n", "?"], capture_output=True,timeout=10)
     if topcmd.stdout:
         pod_usage_dict = dict()
         podusage =  topcmd.stdout.decode('utf-8')
@@ -233,7 +233,7 @@ def top_pod(queue):
         queue.put(pod_usage_dict)
         return pod_usage_dict
     
-def get_pod_by_selector(selector,prefix="app=",namespace = "haoyu"):
+def get_pod_by_selector(selector,prefix="app=",namespace = "?"):
     slecorcmd=subprocess.run(["kubectl", "get" ,"pods", "-n", namespace, "-l",prefix + selector, "-o","wide"], capture_output=True,timeout=10)
     if slecorcmd.stdout:
         podusage =  slecorcmd.stdout.decode('utf-8')
